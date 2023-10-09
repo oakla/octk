@@ -1,0 +1,167 @@
+from itertools import count
+from typing import Union
+from pathlib import Path
+from email.message import EmailMessage
+
+def uniquify(path: Union[str, Path], counter:int=0):
+    if isinstance(path, str):
+        path = Path(path)
+    path = path.resolve()
+    if counter != 0:
+        candidate_path = path.parent / f"{path.stem}_{counter}{path.suffix}"
+    else:
+        candidate_path = path
+    if not candidate_path.exists():
+        return candidate_path
+    counter += 1
+    return uniquify(path, counter)
+
+def get_attachment_bytes(path: Union[str, Path]):
+    if isinstance(path, str):
+        path = Path(path)
+    path = path.resolve()
+    if not path.exists():
+        raise FileNotFoundError
+    with open(path, 'rb') as f:
+        return f.read() 
+    
+
+msg = EmailMessage()
+msg['Subject'] = 'My Subject'
+recipients = ['alexander.oakley@cfs.com.au']
+msg['To'] = ', '.join(recipients)
+msg.preamble = 'This is a multi-part message in MIME format. You will not see this in a MIME-aware mail reader\n.'
+
+
+
+test_attachment_path = r"path/to/file"
+msg.add_attachment(
+    get_attachment_bytes(test_attachment_path),
+    maintype='application', 
+    subtype='xlsx', 
+    filename=Path(test_attachment_path).name
+    )
+
+msg.add_header('X-Unsent', '1')
+
+outfile_name = uniquify(r'email_sample.eml')
+with open(outfile_name, 'wb') as outfile:
+    outfile.write(bytes(msg))
+
+
+
+
+
+
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+from email import generator
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from pathlib import Path
+from typing import Union
+
+def Create_Email():
+    msg            = MIMEMultipart('alternative')
+    msg['Subject'] = 'My Subject'
+    msg['To']      = 'test@gmail.com'
+
+    html = """\
+    <html>
+        <head></head>
+        <body>hello world</body>
+    </html>"""
+
+    part = MIMEText(html, 'html')
+    msg.attach(part)
+    msg.add_header('X-Unsent', '1')
+    # msg.attach
+
+    outfile_name = uniquify(r'email_sample.eml')
+    with open(outfile_name, 'w') as outfile:
+        gen = generator.Generator(outfile)
+        gen.flatten(msg)
+
+Create_Email()
+
+# ********************************************************************
+
+// Below is an example of the html struture for attachments
+emlContent = `To: Demo-Recipient <demo@demo.example.com>
+Subject: EML with attachments
+X-Unsent: 1
+Content-Type: multipart/mixed; boundary=--boundary_text_string
+
+----boundary_text_string
+Content-Type: text/html; charset=UTF-8
+
+<html>
+<body>
+<p>Example</p>
+</body>
+</html>
+
+----boundary_text_string
+Content-Type: application/zip name=demo.zip
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+ZXhhbXBsZQ==
+
+----boundary_text_string
+Content-Type: application/octet-stream; name=demo.log
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+ZXhhbXBsZQ==
+
+----boundary_text_string--`;
+
+
+# Some js from sb
+
+// ----boundary_text_string--`;
+  var emldata = new Blob([emlContent], { type: "text/plain" }); // this creates a new blob object which holds the data from emlcontent and sets a header to let the browser know file type
+  downloadBlob(emldata, "Email_Template.eml"); // Download the blob EML file in the browser
+
+
+# Full js eml generation
+// Below is an example of the html struture for attachments
+emlContent = `To: Demo-Recipient <demo@demo.example.com>
+Subject: EML with attachments
+X-Unsent: 1
+Content-Type: multipart/mixed; boundary=--boundary_text_string
+
+----boundary_text_string
+Content-Type: text/html; charset=UTF-8
+
+<html>
+<body>
+<p>Example</p>
+</body>
+</html>
+
+----boundary_text_string
+Content-Type: application/zip name=demo.zip
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+ZXhhbXBsZQ==
+
+----boundary_text_string
+Content-Type: application/octet-stream; name=demo.log
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+ZXhhbXBsZQ==
+
+----boundary_text_string--`;
+
+// ----boundary_text_string--`;
+  var emldata = new Blob([emlContent], { type: "text/plain" }); // this creates a new blob object which holds the data from emlcontent and sets a header to let the browser know file type
+downloadBlob(emldata, "Email_Template.eml");
+
+function downloadBlob(blob, FileName) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = FileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
