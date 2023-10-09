@@ -1,0 +1,27 @@
+To: Demo-Recipient <demo@demo.example.com>
+Subject: EML with attachments
+X-Unsent: 1
+Content-Type: multipart/mixed; boundary=--boundary_text_string
+
+----boundary_text_string
+Content-Type: text/html; charset=UTF-8
+
+<html>
+<body>
+<p>Example</p>
+</body>
+</html>
+
+----boundary_text_string
+Content-Type: application/zip name=demo.zip
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+ZXhhbXBsZQ==
+
+----boundary_text_string
+Content-Type: application/octet-stream; name=demo.log
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+ZXhhbXBsZQ==
+
+----boundary_text_string--

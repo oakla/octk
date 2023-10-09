@@ -1,0 +1,23 @@
+Subject: Test Subject
+To: alexander.oakley@cfs.com.au
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============9077356452201454371=="
+X-Unsent: 1
+
+--===============9077356452201454371==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Test Body raaaaaah!
+hi sll
+hope you're having ufn
+
+--===============9077356452201454371==
+Content-Type: application/xlsx
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="test_attachment.txt"
+MIME-Version: 1.0
+
+d2FhdGV2ZXJhIHlv
+
+--===============9077356452201454371==--

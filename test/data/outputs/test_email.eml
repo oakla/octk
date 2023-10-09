@@ -1,0 +1,21 @@
+Subject: Test Subject
+To:
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============1295816058346029130=="
+X-Unsent: 1
+
+--===============1295816058346029130==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Test Body
+
+--===============1295816058346029130==
+Content-Type: application/xlsx
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="test_attachment.txt"
+MIME-Version: 1.0
+
+d2FhdGV2ZXJhIHlv
+
+--===============1295816058346029130==--

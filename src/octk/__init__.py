@@ -16,11 +16,12 @@ def uniquify(path:Union[str,Path], counter:int=0):
     return uniquify(path, counter)
 
 def make_draft_email(
-    path:Union[str,Path],
-    subject:str="",
+    out_path:Union[str,Path],
+    subject_text:str="",
     body:str="",
     attachments:Optional[list]=None,
-    recipients:Optional[list]=None
+    recipients:Optional[list]=None,
+    overwrite:bool=False,
 ):
     if attachments is None:
         attachments = []
@@ -28,25 +29,10 @@ def make_draft_email(
         recipients = []
     email.create_email_file(
         recipients=recipients,
-        subject_text=subject,
-        out_path=path,
+        subject_text=subject_text,
+        out_path=out_path,
         attachments=attachments,
+        body=body,
+        overwrite=overwrite,
         )
-    # if isinstance(path, str):
-    #     path = Path(path)
-    # path = uniquify(path)
-    # with path.open("w") as f:
-    #     f.write(f"Subject: {subject}\n")
-    #     f.write(f"\n")
-    #     f.write(f"{body}\n")
-    # if attachments is not None:
-    #     for attachment in attachments:
-    #         if isinstance(attachment, str):
-    #             attachment = Path(attachment)
-    #         attachment = attachment.resolve()
-    #         attachment_link = uniquify(path.parent / attachment.name)
-    #         attachment_link.symlink_to(attachment)
-    #         with path.open("a") as f:
-    #             f.write(f"\n")
-    #             f.write(f"{attachment_link}\n")
-    # return path
+
