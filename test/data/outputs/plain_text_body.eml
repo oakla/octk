@@ -1,16 +1,19 @@
 Subject: Test Subject
-To:
+To: alexander.oakley@cfs.com.au
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1295816058346029130=="
+Content-Type: multipart/mixed; boundary="===============7755830316252975253=="
 X-Unsent: 1
 
---===============1295816058346029130==
+--===============7755830316252975253==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
-Test Body
+Hi All
+Test Body!
 
---===============1295816058346029130==
+Hope you're having fun. :)
+
+--===============7755830316252975253==
 Content-Type: application/xlsx
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="test_attachment.txt"
@@ -18,4 +21,4 @@ MIME-Version: 1.0
 
 d2FhdGV2ZXJhIHlv
 
---===============1295816058346029130==--
+--===============7755830316252975253==--
