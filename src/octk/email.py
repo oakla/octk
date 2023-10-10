@@ -22,7 +22,7 @@ def create_email_file(
     out_path=octk.uniquify(out_path)
     msg = EmailMessage()
     msg['Subject'] = subject_text
-    msg['To'] = ', '.join(recipients)
+    msg['To'] = ', '.join([x.strip() for x in recipients])
     msg.set_content(body)
     # msg.preamble = 'This is a multi-part message in MIME format. You will not see this in a MIME-aware mail reader\n.'
 
@@ -68,7 +68,7 @@ def create_email_file_2(
     
     msg            = MIMEMultipart('alternative')
     msg['Subject'] = subject_text
-    msg['To']      = ', '.join(recipients)
+    msg['To']      = ', '.join([x.strip() for x in recipients])
 
     html = f"""\
     <html>
