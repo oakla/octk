@@ -2,7 +2,11 @@ from pathlib import Path
 from typing import Union, Optional
 from . import email
 
-def uniquify(path:Union[str,Path], counter:int=0):
+def uniquify(path:Union[str,Path], counter:int=0) -> Path:
+    """
+    If the path already exists, append a counter to it. Increment that counter until the path is unique.
+    If the path does not already exist, return it as is.
+    """
     if isinstance(path, str):
         path = Path(path)
     path = path.resolve()
