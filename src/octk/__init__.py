@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Union, Optional
-from . import email
+from . import emailer
 
 def uniquify(path:Union[str,Path], counter:int=0) -> Path:
     """
@@ -31,7 +31,7 @@ def make_draft_email(
         attachments = []
     if recipients is None:
         recipients = []
-    email.create_email_file(
+    emailer.create_email_file(
         recipients=recipients,
         subject_text=subject_text,
         out_path=out_path,

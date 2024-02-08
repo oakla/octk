@@ -10,7 +10,7 @@ octk.make_draft_email(
     attachments=[attachment],
     recipients=["alexander.oakley@cfs.com.au"],
 )
-octk.email.create_email_file_2(
+octk.emailer.create_email_file_2(
     out_path=outpath,
     subject_text="Test Subject",
     body="Test Body raaaaaah!\nhi sll\nhope you're having ufn",
