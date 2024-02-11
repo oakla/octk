@@ -15,7 +15,9 @@ def get_gitignore_template(template_key="python"):
 
 def add_gitignore_file(
         folder=".", overwrite=False, template_keys=[], 
-        custom_gitignore_template:Optional[str]=None, append=False
+        custom_gitignore_template_path:Optional[str]=None, 
+        lines_to_add:Optional[list]=None,
+        append=False
         ):
     """
     template_keys: list of keys to use to get gitignore templates. 
@@ -30,8 +32,11 @@ def add_gitignore_file(
             raise FileExistsError(f"File already exists: {gitignore_file}")
 
     gitignore_content = ""
-    if custom_gitignore_template:
-        with open(custom_gitignore_template, mode="r", encoding='utf-8') as file:
+    if lines_to_add:
+        gitignore_content += "\n".join(lines_to_add) + "\n"
+        
+    if custom_gitignore_template_path:
+        with open(custom_gitignore_template_path, mode="r", encoding='utf-8') as file:
             gitignore_content += file.read()
 
     for template_key in template_keys:
@@ -85,7 +90,7 @@ To contribute to the project, follow these steps:
         file.write(readme_content)
 
 def get_file_tree_section(folder="."):
-    file_tree = FileTree(folder, all_files=False, exclude_dirs=["__pycache__", ".git", ".idea"], )
+    file_tree = FileTree(folder, show_hidden=False, exclude_dirs=["__pycache__", ".git", ".idea"], )
     section_text = f"""
 ## File Tree
 
