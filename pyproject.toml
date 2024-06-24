@@ -15,5 +15,5 @@ This is a miscellaneous collection of common tools and utilities that are often 
 The project continues to evolve and grow as new tools are added and existing tools are improved.
 """
 readme = "README.md"
-keywords = [ "oakley", "common", "toolkit", "octk",]
+keywords = [ "oakley", "common", "toolkit", "octk", "miscellaneous", "directory structure"]
 dependencies = [ "importlib-resources; python_version<\"3.10\"",]
