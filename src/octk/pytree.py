@@ -138,11 +138,12 @@ class FileTree:
             length_limit: int=1000,
             max_item_per_level: int=512,
             diminishing_branches_mode: bool=False,
-            show_exclusion_message: bool=False
+            show_exclusion_message: bool=False,
+            space: str='    ',
+            branch: str='│   ',
+            tee: str='├── ',
+            last: str='└── ',
             ):
-        
-        if isinstance(dir_path, str):
-            dir_path = Path(dir_path)
         
         if exclude_extensions and include_extensions:
             raise ValueError('Cannot have both exclude and include extensions')
@@ -160,7 +161,8 @@ class FileTree:
         self.output_message_lines = ['']
         
         """Given a directory Path object print a visual tree structure"""
-        dir_path = Path(dir_path) # accept string coerceable to Path
+        if isinstance(dir_path, str):
+            dir_path = Path(dir_path) # accept string coerceable to Path
         files = 0
         directories = 0
         def inner(dir_path: Path, prefix: str='', max_level=-1, max_items=512):
@@ -202,7 +204,7 @@ class FileTree:
                     exclusion_notice_lines.append(f"{n_truncated} items truncated")
                 yield prefix + exclusion_notice + ", ".join(exclusion_notice_lines)
         # print(dir_path.name)
-        self.output_tree_lines.append(dir_path.name)
+        self.output_tree_lines.append(dir_path.absolute().name)
         
         iterator = inner(dir_path, max_level=level, max_items=max_item_per_level)
         for line in islice(iterator, length_limit):
@@ -213,6 +215,27 @@ class FileTree:
 
     def __str__(self):
         return '\n'.join(self.output_tree_lines + self.output_message_lines)
+
+
+class PythonProjectTree:
+    
+        def __init__(self, dir_path: Union[Path, str], level: int=-1):
+            self.tree = FileTree(
+                dir_path, 
+                level=level, 
+                exclude_extensions=[
+                    ".pyc", ".pyo", ".pyd", ".pyi", ".pyw", ".pyz", ".pywz", ".pyzw"
+                ],
+                exclude_dirs=[
+                    "__pycache__", ".git", ".idea", ".vscode", ".pytest_cache", "venv", 
+                    "env", "build", "dist", "node_modules", "site-packages", "dist-packages", 
+                    "egg-info", "logs", "tmp", "temp", "tmpfs", "tempfs", "tempfs", "tmp",
+                ],
+            )
+    
+        def __str__(self):
+            return str(self.tree)
+
 
 if __name__ == '__main__':
     test_path = r'.'
