@@ -106,9 +106,9 @@ def truncate_excess_contents(path_list:list[Path], max_length):
 
 class FileTree:
 
-    def get_max_items_for_next_level(self, current_max_items):
+    def get_max_items_for_next_level(self, current_max_items:int) -> int:
         if self.diminishing_branches_mode:
-            return current_max_items / 2
+            return int(current_max_items / 2)
         return current_max_items
 
 
@@ -165,7 +165,7 @@ class FileTree:
             dir_path = Path(dir_path) # accept string coerceable to Path
         files = 0
         directories = 0
-        def inner(dir_path: Path, prefix: str='', max_level=-1, max_items=512):
+        def inner(dir_path: Path, prefix: str='', max_level=-1, max_items:int=512):
             nonlocal files, directories
             if not max_level: 
                 return # 0, stop iterating

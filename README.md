@@ -1,5 +1,16 @@
 # octk
 
+## Getting Started
+### Installation
+```shell
+$ python -m pip install -U octk
+```
+
+### Import
+```python
+import octk
+```
+
 ## Utilities
 
 ### `uniquify`
